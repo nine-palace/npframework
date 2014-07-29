@@ -1,0 +1,97 @@
+<div class="conter">
+	<div class="r_list">
+		<?php if($current['content_type'] != 'photo'){?>
+			<?php if(isset($directs) && is_array($directs) && !empty($directs)){?>
+				<div class="family">
+					<div class="title"><h1>栏目导航</h1></div>
+					<ul>
+						<?php foreach($directs as $value){?>
+							<li><a href="<?=__DOMAIN__;?>show/index.html?id=<?=$value['id'];?>"><?=$value['name'];?></a></li>
+						<?php }?>
+					</ul>
+				</div>
+			<?php }?>
+			<?php if(isset($hots) && is_array($hots)){?>
+				<?php if($current['content_type'] == 'product'){?>
+					<div class="product">
+						<div class="title"><h1>热门产品</h1></div>
+						<ul>
+							<?php foreach($hots as $value){?>
+								<li>
+									<dt><img src="<?=$value['thumbnail'];?>" width="80" height="73" /></dt>
+						  			<dd>
+						  				<p><a href="<?=__DOMAIN__;?>show/product.html?id=<?=$value['id'];?>" title="<?=$value['name'];?>"><?=SUtilComponent::substr($value['name'], 12);?></a></p>
+						  				<p>优惠价格：<font class="fcff6"><?=$value['sale_price'];?>元</font>/<?=$value['unit'];?></p>
+						  			</dd>
+						  		</li>
+						  	<?php }?>
+						</ul>
+					</div>
+				<?php }else{?>
+					<div class="family">
+						<div class="title"><h1>热点新闻</h1></div>
+							<ul>
+								<?php foreach($hots as $v){?>
+									<li><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$v['id'];?>" title="<?=$v['title'];?>"><?=SUtilComponent::substr($v['title'], 20);?></a></li>
+								<?php }?>
+							</ul>
+						</div>
+				<?php }?>
+			<?php }?>
+		<?php }?>
+	</div>
+	<div class="<?=$current['content_type'] == 'photo' ? 'piccontent' : 'listcontent';?>">
+		<div class="title">当前位置: 恩商网首页 
+			<?php foreach($direct_menus as $key => $menu){?>
+				<?php if($menu['id'] == -1){?>
+					 > <?=$menu['name'];?>
+				<?php }else{?>
+					 > <a href="<?=__DOMAIN__;?>show/index.html?id=<?=$menu['id'];?>" target="_blank"><?=$menu['name'];?></a>
+				<?php }?>
+			<?php }?>
+		 </div>
+		<?php if(isset($list) && is_array($list) && !empty($list)){?>
+			<ul>
+				<?php foreach ($list as $key => $value){?>
+					<li>
+						<?php if($current['content_type'] == 'photo'){?>
+							<a href="<?=$value['thumbnail'];?>" target="_blank"><img src="<?=$value['thumbnail'];?>" width="120" height="90" /></a><p><a href="<?=$value['thumbnail'];?>" target="_blank"><?=SUtilComponent::substr($value['name'], 15);?></a></p>
+						<?php }else{?>
+						<dt><a href="<?=__DOMAIN__;?>show/<?php if($current['content_type'] == 'product'){ echo 'product';}else{ echo 'detail';}?>/.html?id=<?=$value['id'];?>"><img src="<?=$value['thumbnail'];?>" width="80" height="73" /></a></dt>
+						<dd>
+							<p><a href="<?=__DOMAIN__;?>show/<?php if($current['content_type'] == 'product'){ echo 'product';}else{ echo 'detail';}?>/.html?id=<?=$value['id'];?>"><?=$current['content_type'] == 'product' ? $value['name'] : $value['title'];?></a></p>
+							<p>日期：<?=date('Y-m-d H:i:s', $value['created']);?> 点击：<font class="fc176"><?=$value['views'];?></font> </p>
+							<p><?php if($current['content_type'] == 'product'){ echo SUtilComponent::substr($value['details']);}else{ echo SUtilComponent::substr($value['summary']);}?></p>
+						</dd>
+						<?php }?>
+					</li>
+				<?php }?>
+			</ul>
+		<?php }else if(isset($detail)){?>
+			<?php if($current['content_type'] == 'product'){?>
+				<div class="content">
+					<p><h3><?=$detail['name'];?></h3></p>
+					<div class="parameter">
+						<dt>
+							<p>市场价格：<font class="fcff6"><?=$detail['price'];?></font>元</p>
+							<p>优惠价格：<font class="fcff6"><?=$detail['sale_price'];?></font>元</p>
+							<p>品牌：<?=$detail['brand'];?></p>
+							<p>单位：<?=$detail['unit'];?></p>
+							<p>人气：<?=$detail['views'];?></p>
+						</dt>
+						<dd><img src="<?=$detail['thumbnail'];?>" width="250" height="250" /></dd>
+						<div class="clear"></div>
+						<p class="fc229">产品详情:</p>
+						<p><?=$detail['details'];?></p>
+					</div>
+				</div>
+			<?php }else{?>
+				<div class="content">
+					<p><h3><?=$detail['title'];?></h3></p>
+					<h4><p>日期：<?=date('Y-m-d H:i:s', $detail['created']);?> 点击：<font class="fc176"><?=$detail['views'];?></font> </p></h4>
+					<p><?=$detail['content'];?></p>
+				</div>
+			<?php }?>
+		<?php }?>
+	</div>
+</div>

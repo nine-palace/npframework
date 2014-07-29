@@ -1,0 +1,67 @@
+		<div class="content">
+			<div class="box">
+				<div class="box_head">
+					<h2 class="left"><?=L(array('current', 'ds', $current['module']));?></h2>
+				</div>
+				<div class="table">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<th width="13"><input type="checkbox" class="checkbox all_select" /></th>
+							<?php if(isset($index_list) && is_array($index_list)){?>
+								<?php foreach($index_list as $k => $v){?>
+									<th><?=L($k);?>
+								<?php }?>
+							<?php }?>
+							<th><?=L('action');?></th>
+						</tr>
+						<?php if(empty($list)){?>
+							<tr>
+								<td colspan="<?=is_array($index_list) ? count($index_list) + 2 : 2;?>" style="text-align:center;"><?=L('no_data');?></td>
+							</tr>
+						<?php }else{?>
+							<?php foreach($list as $key => $info){?>
+								<tr>
+									<td><input type="checkbox" class="checkbox single_select" value="<?=$info['id'];?>" /></td>
+									<?php if(isset($index_list) && is_array($index_list)){?>
+										<?php foreach($index_list as $k => $v){?>
+											<?php if($v['type'] == 'radio'){?>
+												<td><?=isset($info[$k]) && $info[$k] == 1 ? L('yes') : L('no');?></td>
+											<?php }elseif($v['type'] == 'choose'){?>
+												<?php if(!is_array($v['values'])){?>
+													<?php $tmp = $v['values'];?>
+													<?php $arr = $$tmp;?>
+												<?php }else{?>
+													<?php $arr = $v['values'];?>
+												<?php }?>
+												<td>
+													<?php if($k == 'parent_id' || $k == 'cate_id'){?><a href="<?=$domain.$current['module'];?>.html?id=<?=$info[$k];?>"><?php }?>
+													<?=is_array($arr) && isset($arr[$info[$k]]) ? L($arr[$info[$k]]) : ($k == 'parent_id' || $k == 'cate_id' ? L(array('top', 'ds', 'category')) : '');?>
+													<?php if($k == 'parent_id' || $k == 'cate_id'){?></a><?php }?>
+												</td>
+											<?php }elseif($v['type'] == 'thumbnail'){?>
+												<td><?php if(!empty($info[$k])){?> <img width="89" height="61" src="<?=$info[$k];?>" /><?php }?></td>
+											<?php }elseif($v['type'] == 'date'){?>
+												<td><?=date('Y-m-d H:i:s', $info[$k]);?></td> 
+											<?php }else{?>
+												<td><?=$info[$k];?></td>
+											<?php }?>
+										<?php }?>
+									<?php }?>
+									<td>
+										<a href="<?=$domain.$current['module'];?>/modify.html?id=<?=$info['id'];?>"><?=L('modify');?></a>
+										<?php if(Configure::getCustom("func_admin_{$current['module']}_delete") !== false){?>
+										<a href="###" class="delete_single" id="<?=$info['id'];?>"><?=L('delete');?></a>
+										<?php }?>
+									</td>
+								</tr>
+							<?php }?>
+						<?php }?>
+					</table>
+					<?php if(isset($pages)){?>
+						<div class="pagging">
+							<?=$pages;?>
+						</div>
+					<?php }?>
+				</div><!-- end of table -->
+			</div><!-- end of box -->
+		</div><!-- end of content -->

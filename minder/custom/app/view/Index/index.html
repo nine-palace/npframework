@@ -1,0 +1,201 @@
+<?php $this->jsStart();?>
+		<script type="text/javascript">
+			<!--
+			var timeout         = 500;
+			var closetimer		= 0;
+			var ddmenuitem      = 0;
+			// open hidden layer
+			function mopen(id){	
+				// cancel close timer
+				mcancelclosetime();
+				// close old layer
+				if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+				// get new layer and show it
+				ddmenuitem = document.getElementById(id);
+				ddmenuitem.style.visibility = 'visible';
+			}
+			// close showed layer
+			function mclose(){
+				if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+			}
+			// go close timer
+			function mclosetime(){
+				closetimer = window.setTimeout(mclose, timeout);
+			}
+			// cancel close timer
+			function mcancelclosetime(){
+				if(closetimer){
+					window.clearTimeout(closetimer);
+					closetimer = null;
+				}
+			}
+			// close layer when click-out
+			document.onclick = mclose; 
+			// -->
+		</script>
+<?php $this->jsEnd();?>
+	<body bgcolor="#d6d6d6">
+		<div class="header">
+			<div class="logo"><img src="<?=__PUBLIC__;?>images/logo.png" width="196" height="56" /></div>
+			<div class="nav_menu">
+				<ul id="sddm">
+					<li class="bgl"><img src="<?=__PUBLIC__;?>images/nav_bl.png" width="10" height="30" /></li>
+					<?php if(isset($main_menus)){?>
+						<?php foreach($main_menus as  $menu){?>
+							<li>
+								<?php if(isset($menu['direct_cates']) && !empty($menu['direct_cates'])){?>
+									<?php if(empty($menu['link_url'])){?>
+										<a href="<?=__DOMAIN__;?>show/index.html?id=<?=$menu['id'];?>" target="_blank" onmouseover="mopen('m<?=$menu['id'];?>')" onmouseout="mclosetime()"><?=$menu['name'];?></a>
+									<?php }else{?>
+										<a href="<?=$menu['link_url'];?>" target="_blank"><?=$menu['name'];?></a>
+									<?php }?>
+									<div id="m<?=$menu['id'];?>" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+										<?php foreach($menu['direct_cates'] as $cate){?>
+											<?php if(empty($menu['link_url'])){?>
+											<a href="<?=__DOMAIN__;?>show/index.html?id=<?=$cate['id'];?>" target="_blank"><?=$cate['name'];?></a>
+											<?php }else{?>
+												<a href="<?=$cate['link_url'];?>" target="_blank"><?=$cate['name'];?></a>
+											<?php }?>
+										<?php }?>
+									</div>
+								<?php }else{?>
+									<?php if(empty($menu['link_url'])){?>
+									<a href="<?=__DOMAIN__;?>show/index.html?id=<?=$menu['id'];?>" target="_blank"><?=$menu['name'];?></a>
+									<?php }else{?>
+										<a href="<?=$menu['link_url'];?>" target="_blank"><?=$menu['name'];?></a>
+									<?php }?>
+								<?php }?>
+							</li>
+						<?php }?>
+					<?php }?>
+					<li class="en"><a href="#">ENGLISH</a></li>
+					<li class="bgr"><img src="<?=__PUBLIC__;?>images/nav_br.png" width="10" height="30" /></li>
+				</ul>
+			</div><!--end nav_menu-->
+	
+			<div class="wenzi">
+			  <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="495" height="126">
+			    <param name="movie" value="<?=__PUBLIC__;?>images/zi.swf" />
+			    <param name="quality" value="high" />
+			    <param name="wmode" value="transparent" />
+			    <param name="swfversion" value="8.0.35.0" />
+			    <!-- 此 param 标签提示使用 Flash Player 6.0 r65 和更高版本的用户下载最新版本的 Flash Player。如果您不想让用户看到该提示，请将其删除。 -->
+			    <param name="expressinstall" value="Scripts/expressInstall.swf" />
+			    <!-- 下一个对象标签用于非 IE 浏览器。所以使用 IECC 将其从 IE 隐藏。 -->
+			    <!--[if !IE]>-->
+			    <object type="application/x-shockwave-flash" data="<?=__PUBLIC__;?>images/zi.swf" width="495" height="126">
+			      <!--<![endif]-->
+			      <param name="quality" value="high" />
+			      <param name="wmode" value="transparent" />
+			      <param name="swfversion" value="8.0.35.0" />
+			      <param name="expressinstall" value="Scripts/expressInstall.swf" />
+			      <!-- 浏览器将以下替代内容显示给使用 Flash Player 6.0 和更低版本的用户。 -->
+			      <div>
+			        <h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4>
+			        <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="获取 Adobe Flash Player" width="112" height="33" /></a></p>
+			      </div>
+			      <!--[if !IE]>-->
+			    </object>
+			    <!--<![endif]-->
+			  </object>
+			</div>
+		</div><!--end header-->
+		<div class="maincontent">
+			<div class="maincenter ">
+				<?php if(isset($parts)){?>
+					<?php foreach($parts as $part){?>
+						<div class="news">
+							<div class="title"><h1><?=$part['name'];?><span><a href="<?=__DOMAIN__;?>show/index.html?id=<?=$part['id'];?>">更多</a></span></h1></div>
+							<?php foreach($part['articles'] as $key => $article){?>
+								<?php if($key == 0){?>
+									<dl>
+										<dt><img src="<?php if(empty($article['thumbnail'])){ echo $default_article_image;}else{ echo $article['thumbnail'];}?>" width="118" height="79" /></dt>
+										<dd><p><a class="fcdd0"  href="<?=__DOMAIN__;?>show/detail.html?id=<?=$article['id'];?>" title="<?=$article['title'];?>"><?=SUtilComponent::substr($article['title'], 15);?></a></p><p class="fc999"><?=SUtilComponent::substr($article['summary'], 28);?></p></dd>
+									</dl>
+									<div class="clear"></div>
+									<ul>
+								<?php }else{?>
+										<li><a href="<?=__DOMAIN__?>show/detail.html?id=<?=$article['id'];?>" target="_blank" title="<?=$article['title'];?>"><?=SUtilComponent::substr($article['title'], 25);?></a></li>
+								<?php }?>
+							<?php }?>
+							<?php if(!empty($part['articles'])){?>
+								</ul>
+							<?php }?>
+						</div><!--end news-->
+					<?php }?>
+				<?php }?>
+				<div class="flash">
+					<div style="text-align:center">
+					<!-- 代码 开始 -->
+						<script type="text/javascript"> 
+							linkarr = new Array();
+							picarr = new Array();
+							textarr = new Array();
+							var swf_width=270;
+							var swf_height=214;
+							//文字颜色|文字位置|文字背景颜色|文字背景透明度|按键文字颜色|按键默认颜色|按键当前颜色|自动播放时间|图片过渡效果|是否显示按钮|打开方式
+							var configtg='0xffffff|0|0x3FA61F|5|0xffffff|0xC5DDBC|0x000033|2|3|1|_blank';
+							var files = "";
+							var links = "";
+							var texts = "";
+							//这里设置调用标记
+							linkarr[1] = "#";
+							picarr[1]  = "<?=__PUBLIC__;?>images/show_01.jpg";
+							textarr[1] = " 投资广告";
+							linkarr[2] = "#";
+							picarr[2]  = "<?=__PUBLIC__;?>images/show_02.jpg";
+							textarr[2] = " 招商广告";
+							linkarr[3] = "#";
+							picarr[3]  = "<?=__PUBLIC__;?>images/show_03.jpg";
+							textarr[3] = " 投资广告";
+							linkarr[4] = "#";
+							picarr[4]  = "<?=__PUBLIC__;?>images/show_04.jpg";
+							textarr[4] = " 招商广告";
+							linkarr[5] = "#";
+							picarr[5]  = "<?=__PUBLIC__;?>images/show_05.jpg";
+							textarr[5] = " 投资广告";
+							
+							 
+							for(i=1;i<picarr.length;i++){
+							if(files=="") files = picarr[i];
+							else files += "|"+picarr[i];
+							}
+							for(i=1;i<linkarr.length;i++){
+							if(links=="") links = linkarr[i];
+							else links += "|"+linkarr[i];
+							}
+							for(i=1;i<textarr.length;i++){
+							if(texts=="") texts = textarr[i];
+							else texts += "|"+textarr[i];
+							}
+							document.write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="'+ swf_width +'" height="'+ swf_height +'">');
+							document.write('<param name="movie" value="<?=__PUBLIC__;?>images/bcastr3.swf"><param name="quality" value="high">');
+							document.write('<param name="menu" value="false"><param name=wmode value="opaque">');
+							document.write('<param name="FlashVars" value="bcastr_file='+files+'&bcastr_link='+links+'&bcastr_title='+texts+'">');
+							document.write('<embed src="<?=__PUBLIC__;?>images/bcastr3.swf" wmode="opaque" FlashVars="bcastr_file='+files+'&bcastr_link='+links+'&bcastr_title='+texts+'& menu="false" quality="high" width="'+ swf_width +'" height="'+ swf_height +'" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />'); document.write('</object>'); 
+						</script>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<?php if(isset($recoms)){?>
+					<?php foreach($recoms as $recom){?>
+						<div class="project">
+							<div class="title"><h1><?=$recom['name'];?><span><a href="<?=__DOMAIN__;?>show/index.html?id=<?=$recom['id'];?>" target="_blank">更多</a></span></h1></div>
+							<ul>
+								<?php if(isset($recom['articles'])){?>
+									<?php foreach($recom['articles'] as $article){?>
+										<li>
+											<dt><img src="<?php if(empty($article['thumbnail'])){ echo $default_recom_image;}else{ echo $article['thumbnail'];}?>" width="89" height="61" /></dt>
+											<dd>
+												<p><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$article['id'];?>" target="_blank" class="fs14 fb" title="<?=$article['title'];?>"><?=SUtilComponent::substr($article['title'], 7);?></a></p>
+												<p><?=SUtilComponent::substr($article['summary'], 15);?><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$article['id'];?>" class="_blank" class="fcdd0" target="_blank">[详情]</a></p>
+											</dd>
+										</li>
+									<?php }?>
+								<?php }?>
+							</ul>
+						</div><!--end project-->
+					<?php }?>
+				<?php }?>
+			</div><!--end maincenter-->
+		</div><!--end maincontent-->

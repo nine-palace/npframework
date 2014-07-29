@@ -1,0 +1,59 @@
+		<div class="nav_top"><div class="center"><dt>您好,欢迎您来到盟达投资官方网站！</dt><dd><ul><li><a href="#">社区论坛</a> |</li><li><a href="#">加入收藏</a> |</li><li><a href="#">客服中心</a></li></ul></dd></div></div>
+		<div class="header_list">
+			<div class="logo"><img src="<?=__PUBLIC__;?>images/logo1.png" width="196" height="56" /></div>
+			<div class="line"><img src="<?=__PUBLIC__;?>images/line.png" width="188" height="53" /></div>
+		</div>
+		<div class="nav_list">
+			<div class="center">
+				<ul>
+					<li><a href="<?=__DOMAIN__;?>">网站首页</a></li>
+					<?php if(isset($main_menus)){?>
+						<?php foreach($main_menus as $menu){?>
+							<?php if(empty($menu['link_url'])){?>
+								<li><a href="<?=__DOMAIN__;?>show/index.html?id=<?=$menu['id'];?>" <?php if(isset($current['main_index_id']) && $current['main_index_id'] == $menu['id']){?>class="fit"<?php }?>><?=$menu['name'];?></a></li>
+							<?php }else{?>
+								<li><a href="<?=$menu['link_url'];?>" target="_blank"><?=$menu['name'];?></a></li>
+							<?php }?>
+						<?php }?>
+					<?php }?>
+				</ul>
+			</div>
+		</div>
+		<div class="maincenter"><img src="<?=__PUBLIC__;?>images/pic_3.jpg" width="1000" height="180" /></div>
+		<div class="maincenter">
+			<div class="list_l">
+				<div class="title"><h1><?=$current['main_index_name'];?></h1></div>
+				<ul>
+					<?php if(isset($left_menus)){?>
+						<?php foreach($left_menus as $menu){?>
+							<li><a href="<?=__DOMAIN__;?>show/index.html?id=<?=$menu['id'];?>"><?=$menu['name'];?></a><span>>></span></li>
+						<?php }?>
+					<?php }?>
+				</ul>
+			</div>
+			<div class="list_r">
+				<div class="title"><h1><?php if(isset($current['left_index_name'])){ echo $current['left_index_name'];}?></h1></div>
+				<?php if(isset($articles)){?>
+					<ul>
+						<?php foreach($articles as $_article){?>
+							<li>
+								<dt><img src="<?php if(empty($_article['thumbnail'])){ echo $default_article_image;}else{ echo $_article['thumbnail'];}?>" width="140" height="80" class="pic" /></dt>
+								<dd>
+									<p class="fb fs14"><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$_article['id'];?>" target="_blank"><?=$_article['title'];?></a><span><?=date('Y-m-d', $_article['created']);?></span></p>
+									<p><?=SUtilComponent::substr($_article['summary'], 80);?></p>
+									<p><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$_article['id'];?>" class="more" target="_blank">查看更多</a></p>
+								</dd>
+							</li>
+						<?php }?>
+					</ul>
+				<?php }?>
+				<?php if(isset($article)){?>
+					<div class="content">
+						<h1><?=$article['title'];?></h1>
+						<p>
+							<?=$article['content'];?>
+						</p>
+					</div>
+				<?php }?>
+			</div>
+		</div>

@@ -1,0 +1,101 @@
+			<div class="con_l">
+				<?php if(isset($latest) && !empty($latest)){?>
+				<div class="conl_contact">
+					<a href="<?=__DOMAIN__;?>show/index.html?id=<?=$latest['id'];?>" target="_blank"><h4 class="conl_tilte2"><?=$latest['name'];?></h4></a>
+					<ul class="clearfix" style="border:1px solid #ddd;">
+						<?php if(isset($latest['list']) && is_array($latest['list'])){?>
+							<?php foreach($latest['list'] as $key => $value){?>
+								<li>
+									<b class="prefix">·</b>
+									<a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$value['id'];?>" target="_blank" title="<?=$value['title'];?>"><?=SUtilComponent::substr($value['title'], 12);?></a>
+									<span><?=date('m-d', $value['updated']);?></span>
+									</li>
+							<?php }?>
+						<?php }?>
+					</ul>
+				</div>
+				<?php }?>
+				<?php if(isset($introduction) && !empty($introduction)){?>
+				<div class="conl_contact">
+					<a href="<?=__DOMAIN__;?>show/index.html?id=<?=$introduction['id'];?>" target="_blank"><h4 class="conl_tilte2"><?=$introduction['name'];?></h4></a>
+						<div>
+							<?php if(isset($introduction['info']['thumbnail']) && !empty($introduction['info']['thumbnail'])){?>
+								<p><img src="<?=$introduction['info']['thumbnail'];?>" width="252"/></p>
+							<?php }?>
+							<?=$introduction['info']['content'];?><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$introduction['info']['id'];?>" target="_blank" style="color:red;">详细</a>
+						</div>
+				</div>
+				<?php }?>
+			</div>
+			<div class="con_r">
+				<?php if(isset($tops) && !empty($tops)){?>
+				<div class="mb10 container">
+				  <ul class="slider">
+				  	<?php foreach($tops as $key => $value){?>
+				  		<?php if(!empty($value['thumbnail'])){?>
+				  			<li><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$value['id'];?>" target="_blank"><img src="<?=$value['thumbnail'];?>" title="<?=$value['title'];?>" alt="<?=$value['title'];?>" style="max-width:730px;"/></a></li>
+				  		<?php }?>
+				  	<?php }?>
+				  </ul>
+				  <ul class="num">
+				  	<?php $num = 1;?>
+				  	<?php foreach($tops as $key => $value){?>
+				  		<?php if(!empty($value['thumbnail'])){?>
+				  			<li><?=$num++;?></li>
+				  		<?php }?>
+				  	<?php }?>
+				  </ul>
+				</div>
+				<?php }?>
+				<?php if(isset($information) && is_array($information)){?>
+					<?php foreach($information as $v){?>
+						<?php if(isset($v['info']) && !empty($v['info'])){?>
+							<div class="mb10">
+								<h4 class="conr_title"><?=$v['info']['name'];?><a href="<?=__DOMAIN__;?>show/index.html?id=<?=$v['info']['id'];?>" target="_blank" class="more_link">更多</a></h4>
+								<div class="<?=$v['type'] == 'photo' ? 'index_image' : 'index_lists';?>">
+									<ul class="clearfix">
+										<?php foreach($v['info']['list'] as $key => $value){?>
+											<li>
+												<?php if($v['type'] == 'photo'){?>
+													<a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$value['id'];?>" target="_blank" title="<?=$value['title'];?>"><img src="<?=$value['thumbnail'];?>" alt="<?=$value['title'];?>" /><span><?=SUtilComponent::substr($value['title'], 10);?></span></a>
+												<?php }else{?>
+													<b class="prefix">·</b><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$value['id'];?>" target="_blank" title="<?=$value['title'];?>"><?=SUtilComponent::substr($value['title'], 10);?></a>
+													<?php if($v['type'] == 'list_time'){?><span><?=date('Y-m-d', $value['updated']);?></span><?php }?>
+												<?php }?>
+											</li>
+										<?php }?>
+									</ul>
+								</div>
+							</div>
+						<?php }?>
+					<?php }?>
+				<?php }?>
+				
+			</div>
+			<?php $this->jsStart();?>
+			<script type="text/javascript">
+				var t;
+				var time = 3000;
+				$(document).ready(function(){
+					$('.slider li').hide();
+					$('.slider li:first').show();
+					
+					$('.num li').click(function(){
+						clearTimeout(t);
+						$('.num li').removeClass('on');
+						$(this).addClass('on');
+						var cur = $(this).text();
+						var list = $('.slider li');
+						list.hide();
+						list.eq(cur - 1).show();
+						t = setTimeout("autoClick(" + cur + ")", time);
+					});
+					$('.num li:first').click();
+				});
+				function autoClick(cur){
+					var list = $('.num li');
+					var now = cur == list.length ? 0 : cur;
+					list.eq(now).click();
+				}
+			</script>
+			<?php $this->jsEnd();?>

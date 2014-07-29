@@ -1,0 +1,57 @@
+	<div class="main">
+		<div class="cl">&nbsp;</div>
+		<div class="content">
+			<div class="box">
+				<div class="box_head">
+					<h2><?php if(isset($info) && isset($info['id'])){ ?>编辑<?php }else{?>添加<?php }?>图片</h2>
+				</div>
+				<form action="<?=$domain;?>photo/modify.html<?php if(isset($info) && isset($info['id'])){ ?>?id=<?=$info['id'];?><?php }?>" method="post" enctype='multipart/form-data'>
+					<div class="form">
+						<p>
+							<span class="req">max 100 symbols</span>
+							<label>图片名称<span></span></label>
+							<input type="text" class="field size1" name="name" value="<?php if(isset($info) && isset($info['name'])){ echo $info['name'];}?>"/>
+						</p>
+						<p>
+							<label>所属栏目</label>
+							<select name="cate_id" class="field size2">
+								<option value="0">顶级栏目</option>
+								<?php foreach($parts as $key => $part){?>
+									<option value="<?=$part['id'];?>" <?php if(isset($info) && isset($info['cate_id']) && $info['cate_id'] == $part['id']){ echo 'selected="selected"';}?>><?=$part['name'];?></option>
+								<?php }?>
+							</select>
+						</p>
+						<p>
+							<label>缩略图</label>
+							<input type="file" name="thumbnail" />
+							<?php if(isset($info['thumbnail'])){?>
+								<img src="<?=$info['thumbnail'];?>" width="89" height="61" />
+							<?php }?>
+						</p>
+						<p>
+							<label>排序</label>
+							<input type="text" name="order_asc" class="field size2" value="<?php if(isset($info) && isset($info['order_asc'])){ echo $info['order_asc'];}else{ echo 10;}?>" />
+						</p>
+					</div>
+					
+					<div class="buttons">
+						<input type="reset" class="button" value="重置" />
+						<input type="submit" class="button" value="提交" />
+					</div>
+				</form>
+			</div><!-- end of form box -->
+		</div><!-- end of content -->
+		
+		<div class="sidebar">
+			<div class="box">
+				<div class="box_head">
+					<h2>管理面板</h2>
+				</div>
+				<div class="box_content">
+					<a href="<?=$domain;?>photo/index.html" class="add_button"><span>图片列表</span></a>
+					<div class="cl">&nbsp;</div>
+				</div>
+			</div>
+		</div><!-- end of sidebar -->
+		<div class="cl">&nbsp;</div>
+	</div>

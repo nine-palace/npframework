@@ -1,0 +1,141 @@
+<div  class="conter">
+	<div class="news">
+		<div class="news_left" style="height:192px;">
+			<div class="flash" id="slider1">
+				<?php $this->cssStart();?>
+					<link rel="stylesheet" type="text/css" href="<?=__PUBLIC__;?>css/lrtk.css" />
+					<script type="text/javascript" src="<?=__PUBLIC__;?>js/pptBox.js"></script>
+				<?php $this->cssEnd();?>
+				<script type="text/javascript">
+					var box = new PPTBox();
+					box.width = 280;
+					box.height = 192;
+					box.autoplayer = 3;
+					<?php if(isset($photos) && is_array($photos)){?>
+						<?php foreach($photos as $photo){?>
+							box.add({"url":"<?=$photo['thumbnail'];?>", "href":"<?=__DOMAIN__;?>show/detail.html?id=<?=$photo['id'];?>", "title":"<?=$photo['title'];?>"});
+						<?php }?>
+					<?php }?>
+					box.show();
+				</script>
+			</div>
+			<div class="news_content">
+				<div class="title"><h1><span><a href="<?=__DOMAIN__;?>show/index.html?id=22" target="_blank">更多</a></span>公告通知</h1></div>
+				<ul>
+					<?php foreach ($tongzhi as $k => $v){?>
+						<li><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$v['id'];?>" target="_blank" title="<?=$v['title'];?>"><?=SUtilComponent::substr($v['title']);?></a></li>
+					<?php }?>
+				</ul>
+			</div>
+		</div>
+	
+		<div class="news_hot">
+			<div class="content">
+				<?php if(isset($dongtai[0])){?>
+				<h2><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$dongtai[0]['id'];?>" target="_blank" title="<?=$dongtai[0]['title'];?>"><?=SUtilComponent::substr($dongtai[0]['title'], 20);?></a></h2><p style="float:left;"><?=SUtilComponent::substr($dongtai[0]['summary'], 100);?></p>
+				<?php }?>
+				<div class="clear"></div>
+				<ul>
+					<?php foreach($dongtai as $k => $v){?>
+						<?php if($k != 0){?>
+							<li><span>[<?=date('Y-m-d', $v['created']);?>]</span><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$v['id'];?>" target="_blank" title="<?=$v['title'];?>"><?=SUtilComponent::substr($v['title'], 22);?></a></li>
+						<?php }?>
+					<?php }?>
+				</ul>
+				<p>--------点击这里查看 <a href="<?=__DOMAIN__;?>show/index.html?id=7" target="_blank">商会动态</a> 栏目的更多内容</p>
+			</div>
+		</div>
+	
+		<div class="news_right">
+			<div class="news_content">
+				<div class="title"><h1>关于商会</h1></div>
+				<div class="about">
+					<?php if(isset($about) && is_array($about)){?>
+						<?php foreach($about as $k => $v){?>
+							<span><a href="<?=__DOMAIN__;?>show/index.html?id=<?=$v['id'];?>"><?=$v['name'];?></a></span>
+						<?php }?>
+					<?php }?>
+				</div>
+			</div>
+			<div class="news_content">
+				<div class="title"><h1><span><a href="<?=__DOMAIN__;?>show/index.html?id=13" target="_blank">更多</a></span>招商引资</h1></div>
+				<ul>
+					<?php foreach($zhaoshang as $k => $v){?>
+						<li><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$v['id'];?>" target="_blank" title="<?=$v['title'];?>"><?=SUtilComponent::substr($v['title']);?></a></li>
+					<?php }?>
+				</ul>
+			</div>
+		</div>
+	</div> 
+
+	<div class="clear"></div>
+
+	<div class="new_pic">
+		<div class="title"><h1><span><a href="<?=__DOMAIN__;?>show/index.html?id=23" target="_blank">更多</a></span>恩施美图</h1></div>
+		<ul>
+			<?php foreach($meitu as $k => $v){?>
+				<li><a href="<?=$v['thumbnail'];?>" target="_blank"><img src="<?=$v['thumbnail'];?>" width="120" height="90" /></a><p><a href="<?=$v['thumbnail'];?>" target="_blank"><?=SUtilComponent::substr($v['name'], 15);?></a></p></li>
+			<?php }?>
+		</ul>
+	</div>
+	
+	<div class="clear"></div>
+
+	<div class="news">
+		<div class="news_left">
+			<div class="news_content">
+				<div class="title"><h1><span><a href="<?=__DOMAIN__;?>show/index.html?id=25" target="_blank">更多</a></span>走进恩施</h1></div>
+				<ul>
+					<?php foreach ($enshi as $k => $v){?>
+						<li><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$v['id'];?>" target="_blank" title="<?=$v['title'];?>"><?=SUtilComponent::substr($v['title']);?></a></li>
+					<?php }?>
+				</ul>
+			</div>
+		</div>
+	
+		<div class="news_hot"><div class="title"><h1>视频天地</h1></div><img src="<?=__PUBLIC__;?>images/video.jpg" width="378" height="342" /></div>
+	
+		<div class="news_right">
+			<div class="news_content">
+				<div class="title"><h1><span><a href="<?=__DOMAIN__;?>show/index.html?id=21" target="_blank">更多</a></span>旅游户外</h1></div>
+				<ul>
+					<?php foreach($lvyou as $k => $v){?>
+						<li><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$v['id'];?>" target="_blank" title="<?=$v['title'];?>"><?=SUtilComponent::substr($v['title']);?></a></li>
+					<?php }?>
+				</ul>
+				
+			</div>
+			<div class="news_content">
+				<div class="title"><h1><span><a href="<?=__DOMAIN__;?>show/index.html?id=14" target="_blank">更多</a></span>捐资助学</h1></div>
+				<ul>
+					<?php foreach($juanzeng as $k => $v){?>
+						<li><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$v['id'];?>" target="_blank" title="<?=$v['title'];?>"><?=SUtilComponent::substr($v['title']);?></a></li>
+					<?php }?>
+				</ul>
+			</div>
+		</div>
+	</div> 
+
+	<div class="clear"></div>
+
+	<div class="new_pic">
+		<div class="title"><h1><span><a href="<?=__DOMAIN__;?>show/index.html?id=24">更多</a></span>活动剪辑</h1></div>
+		<ul>
+			<?php foreach($jianji as $k => $v){?>
+				<li><a href="<?=$v['thumbnail'];?>" target="_blank"><img src="<?=$v['thumbnail'];?>" width="120" height="90" /></a><p><a href="<?=$v['thumbnail'];?>" target="_blank"><?=SUtilComponent::substr($v['name'], 15);?></a></p></li>
+			<?php }?>
+		</ul>
+	</div>
+
+	<div class="link">
+		<div class="title"><h1>友情链接</h1></div>
+		<ul>
+			<li><a href="#">恩施新闻网</a></li>
+			<li><a href="#">宣恩政府网</a></li>
+			<li><a href="#">恩施户外网</a></li>
+			<li><a href="#">恩施州政府</a></li>
+			<li><a href="#">恩施州招商局</a></li>
+			<li><a href="#">中国恩施商务网</a></li>
+		</ul>
+	</div>
+</div>

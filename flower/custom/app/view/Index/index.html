@@ -1,0 +1,16 @@
+			<div class="con_r">
+				<div class="mb10">
+					<h4 class="conr_title">公司简介</h4>
+					<div class="conr_gs" style="max-height:238px;overflow:hidden;_height:238px;"><?=$introduction;?></div>
+				</div>
+				<div class="mb10">
+					<h4 class="conr_title">学员风采</h4>
+					<div class="index_image">
+						<ul class="clearfix">
+							<?php foreach($photos as $key => $value){?>
+								<li><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$value['id'];?>" target="_blank" title="<?=$value['title'];?>"><img src="<?=$value['thumbnail'];?>" alt="<?=$value['title'];?>" /><span><?=SUtilComponent::substr($value['title'], 10);?></span></a></li>
+							<?php }?>
+						</ul>
+					</div>
+				</div>
+			</div>

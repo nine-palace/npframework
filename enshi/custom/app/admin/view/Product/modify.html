@@ -1,0 +1,94 @@
+	<div class="main">
+		<div class="cl">&nbsp;</div>
+		<div class="content">
+			<div class="box">
+				<div class="box_head">
+					<h2><?php if(isset($info) && isset($info['id'])){ ?>编辑<?php }else{?>添加<?php }?>产品</h2>
+				</div>
+				<form action="<?=$domain;?>product/modify.html<?php if(isset($info) && isset($info['id'])){ ?>?id=<?=$info['id'];?><?php }?>" method="post" enctype='multipart/form-data'>
+					<div class="form">
+						<p>
+							<span class="req">max 100 symbols</span>
+							<label>产品名称<span>(Required Field)</span></label>
+							<input type="text" class="field size1" name="name" value="<?php if(isset($info) && isset($info['name'])){ echo $info['name'];}?>"/>
+						</p>
+						<p>
+							<label>所属栏目</label>
+							<select name="cate_id" class="field size2">
+								<option value="0">顶级栏目</option>
+								<?php foreach($parts as $key => $part){?>
+									<option value="<?=$part['id'];?>" <?php if(isset($info) && isset($info['cate_id']) && $info['cate_id'] == $part['id']){ echo 'selected="selected"';}?>><?=$part['name'];?></option>
+								<?php }?>
+							</select>
+						</p>
+						<p>
+							<label>缩略图</label>
+							<input type="file" name="thumbnail" />
+							<?php if(isset($info['thumbnail'])){?>
+								<img src="<?=$info['thumbnail'];?>" width="89" height="61" />
+							<?php }?>
+						</p>
+						<p>
+							<label>市场价</label>
+							<input type="text" name="price" value="<?php if(isset($info) && isset($info['price'])){ echo $info['price'];}?>"/>
+						</p>
+						<p>
+							<label>售价</label>
+							<input type="text" name="sale_price" value="<?php if(isset($info) && isset($info['sale_price'])){ echo $info['sale_price'];}?>"/>
+						</p>
+						<p>
+							<label>品牌</label>
+							<input type="text" name="brand" value="<?php if(isset($info) && isset($info['brand'])){ echo $info['brand'];}?>"/>
+						</p>
+						<p>
+							<label>单位</label>
+							<input type="text" name="unit" value="<?php if(isset($info) && isset($info['unit'])){ echo $info['unit'];}else{ echo '件';}?>"/>
+						</p>
+						<p>
+							<label>产品详情</label>
+							<textarea class="field size1" style="height:300px;" name="details"><?php if(isset($info) && isset($info['details'])){ echo $info['details'];}?></textarea>
+						</p>
+						<p>
+							<label>排序</label>
+							<input type="text" name="order_asc" class="field size2" value="<?php if(isset($info) && isset($info['order_asc'])){ echo $info['order_asc'];}else{ echo 10;}?>" />
+						</p>
+					</div>
+					
+					<div class="buttons">
+						<input type="reset" class="button" value="重置" />
+						<input type="submit" class="button" value="提交" />
+					</div>
+				</form>
+			</div><!-- end of form box -->
+		</div><!-- end of content -->
+		
+		<div class="sidebar">
+			<div class="box">
+				<div class="box_head">
+					<h2>管理面板</h2>
+				</div>
+				<div class="box_content">
+					<a href="<?=$domain;?>product/index.html" class="add_button"><span>产品列表</span></a>
+					<div class="cl">&nbsp;</div>
+				</div>
+			</div>
+		</div><!-- end of sidebar -->
+		<div class="cl">&nbsp;</div>
+	</div>
+	<?php $this->cssStart();?>
+		<link rel="stylesheet" href="<?=__PUBLIC__;?>css/default.css" />
+	<?php $this->cssEnd();?>
+	<?php $this->jsStart();?>
+	<script type="text/javascript" src="<?=__PUBLIC__;?>js/kindeditor-min.js"></script>
+	<script type="text/javascript" src="<?=__PUBLIC__;?>js/zh_CN.js"></script>
+	<script type="text/javascript">
+		var editor;
+		KindEditor.ready(function(K){
+			editor = K.create('textarea[name="details"]', {
+				cssPath : '<?=__PUBLIC__;?>js/plugins/code/prettify.css',
+				uploadJson : '<?=$domain;?>ajax/upload.html',
+				allFileManager : false
+			});
+		});
+	</script>
+	<?php $this->jsEnd();?>

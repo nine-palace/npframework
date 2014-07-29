@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+.top,.footer{width:100%;height:200px;border:1px solid #bbb;}
+.center{width:100%;height:600px;border:1px solid #bbb;}
+.rest_cards,.my_own_cards{width:300px;height:200px;border:1px solid #bbb;margin:auto;position:relative;}
+.previous_player_cards,.next_player_cards{width:200px;height:300px;padding:0 25px;border:1px solid #bbb;position:relative;}
+.previous_player_cards{float:left;}
+.next_player_cards{float:right;}

@@ -1,0 +1,41 @@
+<div class="con_r">
+	<div class="mb10">
+		<h4 class="conr_title"><?=$current['cate_name']['name'];?></h4>
+		<?php if(isset($list)){?>
+			<div class="<?=$current['content_type'] == 'photo' ? 'index_cp' : 'index_list';?>">
+				<ul class="clearfix">
+					<?php foreach($list as $key => $value){?>
+						<?php if($current['content_type'] == 'photo'){?>
+							<li>
+								<div class="left_image">
+									<a href="<?=$value['thumbnail'];?>" target="_blank" title="<?=$value['title'];?>">
+										<img src="<?=$value['thumbnail'];?>" alt="<?=$value['title'];?>" />
+									</a>
+								</div>
+								<div class="right_info">
+									<div class="cate"><b><?=$current['cate_name']['name'];?></b></div>
+									<div class="content"><?=SUtilComponent::substr($value['content'], 100);?></div>
+									<div class="detail"><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$value['id'];?>" target="_blank" title="<?=$value['title'];?>">详细介绍</a></div>
+								</div>
+							</li>
+						<?php }else{?>
+							<li><a href="<?=__DOMAIN__;?>show/detail.html?id=<?=$value['id'];?>" target="_blank" title="<?=$value['title'];?>"><?=SUtilComponent::substr($value['title'], 30);?></a><span><?=date('Y-m-d', $value['updated']);?></span></li>
+						<?php }?>
+					<?php }?>
+				</ul>
+			</div>
+		<?php }?>
+		
+		<?php if(isset($detail)){?>
+			<?php if(isset($detail['thumbnail']) && !empty($detail['thumbnail'])){?>
+				<div class="detail_image"><img src="<?=$detail['thumbnail'];?>" /></div>
+			<?php }?>
+			<div class="conr_gs"><?=$detail['content'];?></div>
+		<?php }?>
+	</div>
+	<?php if(isset($pages)){?>
+		<div class="pagging">
+			<?=$pages;?>
+		</div>
+	<?php }?>
+</div>

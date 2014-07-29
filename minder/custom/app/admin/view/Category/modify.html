@@ -1,0 +1,75 @@
+	<div class="main">
+		<div class="cl">&nbsp;</div>
+		<div class="content">
+			<div class="box">
+				<div class="box_head">
+					<h2><?php if(isset($info) && isset($info['id'])){ ?>编辑<?php }else{?>添加<?php }?>栏目</h2>
+				</div>
+				<form action="<?=$domain;?>category/modify.html<?php if(isset($info) && isset($info['id'])){ ?>?id=<?=$info['id'];?><?php }?>" method="post">
+					<div class="form">
+						<p>
+							<span class="req">max 100 symbols</span>
+							<label>栏目名称<span>(Required Field)</span></label>
+							<input type="text" class="field size1" name="name" value="<?php if(isset($info) && isset($info['name'])){ echo $info['name'];}?>"/>
+						</p>
+						<p>
+							<label>上级栏目</label>
+							<select name="parent_id" class="field size2">
+								<option value="0">顶级栏目</option>
+								<?php foreach($parts as $key => $part){?>
+									<option value="<?=$part['id'];?>" <?php if(isset($info) && isset($info['parent_id']) && $info['parent_id'] == $part['id']){ echo 'selected="selected"';}?>><?=$part['name'];?></option>
+								<?php }?>
+							</select>
+						</p>
+						<p>
+							<label>主栏目显示</label>
+							<select name="is_main_show" class="field size2">
+								<option value="1" <?php if(isset($info) && isset($info['is_main_show']) && $info['is_main_show'] == 1){ echo 'selected="selected"';}?>>是</option>
+								<option value="0" <?php if(isset($info) && isset($info['is_main_show']) && $info['is_main_show'] == 0){ echo 'selected="selected"';}?>>否</option>
+							</select>
+						</p>
+						<p>
+							<label>主页显示</label>
+							<select name="is_index_show" class="field size2">
+								<option value="1" <?php if(isset($info) && isset($info['is_index_show']) && $info['is_index_show'] == 1){ echo 'selected="selected"';}?>>是</option>
+								<option value="0" <?php if(!isset($info) || !isset($info['is_index_show']) || $info['is_index_show'] == 0){ echo 'selected="selected"';}?>>否</option>
+							</select>
+						</p>
+						<p>
+							<label>主页推荐</label>
+							<select name="is_index_recom" class="field size2">
+								<option value="1" <?php if(isset($info) && isset($info['is_index_recom']) && $info['is_index_recom'] == 1){ echo 'selected="selected"';}?>>是</option>
+								<option value="0" <?php if(!isset($info) || !isset($info['is_index_recom']) || $info['is_index_recom'] == 0){ echo 'selected="selected"';}?>>否</option>
+							</select>
+						</p>
+						<p>
+							<label>外部链接</label>
+							<input type="text" name="link_url" class="field size1" value="<?php if(isset($info) && isset($info['link_url'])){ echo $info['link_url'];}else{ echo '';}?>" />
+						</p>
+						<p>
+							<label>排序</label>
+							<input type="text" name="order_asc" class="field size2" value="<?php if(isset($info) && isset($info['order_asc'])){ echo $info['order_asc'];}else{ echo 10;}?>" />
+						</p>
+					</div>
+					
+					<div class="buttons">
+						<input type="reset" class="button" value="重置" />
+						<input type="submit" class="button" value="提交" />
+					</div>
+				</form>
+			</div><!-- end of form box -->
+		</div><!-- end of content -->
+		
+		<div class="sidebar">
+			<div class="box">
+				<div class="box_head">
+					<h2>管理面板</h2>
+				</div>
+				<div class="box_content">
+					<a href="<?=$domain;?>category/index.html" class="add_button"><span>栏目列表</span></a>
+					<div class="cl">&nbsp;</div>
+				</div>
+			</div>
+		</div><!-- end of sidebar -->
+		<div class="cl">&nbsp;</div>
+	</div>

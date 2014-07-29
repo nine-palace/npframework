@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td{ margin:0; padding:0;}
+body, button, input, select, textarea{ font:12px/1.5 Tahoma, Arial; color:#666}
+h1, h2, h3, h4, h5, h6{ font-size:100%;}
+address, cite, dfn, em, var{ font-style:normal;}
+code, kbd, pre, samp{ font-family:courier new, courier, monospace;}
+small{ font-size:12px;}
+ul, ol, li{ list-style:none;}
+a{ color:#333333; text-decoration:none;}
+a:hover{color:#0069ca; text-decoration:underline;}
+sup{ vertical-align:text-top;}
+sub{ vertical-align:text-bottom;}
+legend{ color:#000;}
+fieldset, img{ border:0;}
+button, input, select, textarea{ font-size:100%; outline:none;vertical-align:middle;}
+table{ border-collapse:collapse; border-spacing:0;}
+
+/* login */
+
+.entry{position:relative; margin:0 auto; top:300px; width:400px; height:280px; }
+.entry_logo{position:relative; text-align:center}
+.entry .login{position:relative;width:400px; height:250px; background:#e6e6e6;top:10px;border-radius:10px; }
+.entry .login .content{ padding:30px;}
+.entry .login .content ul li{line-height:55px; margin:0 auto; text-align:center}
+.entry .login .content input{ height:30px; width:257px; font-size:14px; font-weight:bold; color:#444}
+.entry .login .content a{position:relative;display:block; font-size:14px; color:#FFF; font-weight:bold; background:url(../login/bk_2.png) no-repeat; width:267px; height:40px; line-height:40px; margin:0 auto; }
+.entry .login .content a:hover{background:url(../login/bk_2_1.png) no-repeat;}
+.entry .bot{position:relative; padding:20px 0 0 0; text-align:center; color:#FFF}

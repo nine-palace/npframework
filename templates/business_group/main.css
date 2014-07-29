@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td{ margin:0; padding:0;}
+body, button, input, select, textarea{ font:12px/1.5 Tahoma, Arial; color:#666}
+h1, h2, h3, h4, h5, h6{ font-size:100%;}
+address, cite, dfn, em, var{ font-style:normal;}
+code, kbd, pre, samp{ font-family:courier new, courier, monospace;}
+small{ font-size:12px;}
+ul, ol, li{ list-style:none;}
+a{ color:#333333; text-decoration:none;}
+a:hover{color:#0069ca; text-decoration:underline;}
+sup{ vertical-align:text-top;}
+sub{ vertical-align:text-bottom;}
+legend{ color:#000;}
+fieldset, img{ border:0;}
+button, input, select, textarea{ font-size:100%; outline:none;vertical-align:middle;}
+table{ border-collapse:collapse; border-spacing:0;}
+
+.clear {clear: both;display: block;height: 0;overflow: hidden;visibility: hidden;width: 0;}
+
+.global{background:#F3F3F3;width:1000px;margin:auto;}
+.global .topDiv{background:#E7E7E7;height:5px;width:100%;}
+.global .headDiv{background:red;height:100px;width:100%;}
+.global .headDiv .logo{background:blue;width:200px;height:60px;float:left;margin:20px 0 0 30px;}
+.global .headDiv .search{background:yellow;width:400px;height:30px;margin:30px 30px 0 0;float:right;}
+.global .menu{}
+.global .menu ul{}
+.global .menu ul li{float:left;background:#01B7E7;height:40px;}

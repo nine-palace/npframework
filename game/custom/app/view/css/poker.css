@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";
+
+.poker{
+	width:100px;
+	height:150px;
+	position:relative;
+	border: 1px solid #bbb;
+}
+.poker .number{line-height:14pt;font-size:20px;font-weight:300;position:absolute;top:3px;left:13px;}
+.poker .flower{position:absolute;top:12px;left:0;font-family:iconFont;}
+.poker .flower:before{font-size:25pt;top:0;left:8px;position:absolute;}
+.poker .flower:after{font-size:120px;left:16px;top:-10px;position:absolute;}
+/**
+ * start of number content
+ */
+.two .number:before{content:"2";}
+.three .number:before{content:"3";}
+.four .number:before{content:"4";}
+.five .number:before{content:"5";}
+.six .number:before{content:"6";}
+.seven .number:before{content:"7";}
+.eight .number:before{content:"8";}
+.nine .number:before{content:"9";}
+.ten .number:before{content:"10";}
+.jack .number:before{content:"J";}
+.dame .number:before{content:"Q";}
+.king .number:before{content:"K";}
+.ace .number:before{content:"A";}
+.joker .number:before,.joker .number:after{content;"";}
+/**
+ * end of number content
+ */
+/**
+ * start of flower color
+ */
+.spades div,.clubs div{color:black;}
+.diamonds div,.hearts div{color:red;}
+.joker_small div{color:#bbb;}
+.joker_big div{color:yellow;}
+/**
+ * end of flower color
+ */
+/**
+ * start of flower
+ */
+.spades .flower:before,.spades .flower:after{content:"\2660";}
+.clubs .flower:before,.clubs .flower:after{content:"\2663";}
+.diamonds .flower:before,.diamonds .flower:after{content:"\2666";}
+.hearts .flower:before,.hearts .flower:after{content:"\2665";}
+.joker .flower:after{content:"\2724";}
+/**
+ * end of flower
+ */
+/**
+ * start of details of the adjustment
+ */
+.spades .flower:before,.diamonds .flower:before{left:9px;}
+.clubs .flower:after{left:11px;}
+.diamonds .flower:after{left:18px;}
+.joker .flower:after{left:-2px;top:-22px;}
+/**
+ * end of detailds of the adjustment
+ */

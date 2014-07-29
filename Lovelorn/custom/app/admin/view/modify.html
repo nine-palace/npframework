@@ -1,0 +1,94 @@
+		<div class="content">
+			<div class="box">
+				<div class="box_head">
+					<h2><?=isset($info) && isset($info['id']) ? L(array('modify', 'ds', $current['module'])) : L(array('add', 'ds', $current['module']));?></h2>
+				</div>
+				<form action="<?=$domain.$current['module'];?>/modify.html<?=isset($info, $info['id']) ? "?id=".$info['id'] : '';?>" method="post" enctype='multipart/form-data'>
+					<div class="form">
+						<?php if(isset($index_list) && is_array($index_list)){?>
+							<?php foreach($index_list as $k => $v){?>
+								<?php if(isset($v['type']) && $v['type'] == 'multi' && Configure::$multiLanguage === true){?>
+									<?php foreach(Configure::$availableLanguages as $key => $value){?>
+										<p>
+											<span class="req">max 100 symbols</span>
+											<label><?=L(array($current['module'], 'ds', $k));?>(<?=$value;?>)</label>
+											<input type="text" class="field size1" name="<?="{$k}[{$key}]";?>" value="<?=isset($info, $info[$k], $info[$k][$key]) ? $info[$k][$key] : '';?>"/>
+										</p>
+									<?php }?>
+								<?php }else{?>
+									<p>
+										<label><?=L($k);?></label><?=isset($v['required']) && $v['required'] === true ? '<span>('.L('required').')</span>' : '';?>
+										<?php if(isset($v['type']) && $v['type'] == 'multi'){?>
+											<input type="text" class="field size1" name="<?=$k;?>" value="<?=isset($info, $info[$k], $info[$k][$this->getLanguage()]) ? $info[$k][$this->getLanguage()] : '';?>"/>
+										<?php }elseif(isset($v['type']) && $v['type'] == 'name'){?>
+											<input type="text" class="field size1" name="<?=$k;?>" value="<?=isset($info, $info[$k], $info[$k]) ? $info[$k]: '';?>"/>
+										<?php }elseif(isset($v['type']) && $v['type'] == 'radio'){?>
+											<select name="<?=$k;?>" class="field size2">
+												<option value="1" <?=isset($info) && isset($info[$k]) ? ($info[$k] == 1 ? 'selected="selected"' : '') : (isset($v['values']) && $v['values'] == 1 ? 'selected="selected"' : '');?>><?=L('yes');?></option>
+												<option value="0" <?=isset($info) && isset($info[$k]) ? ($info[$k] == 0 ? 'selected="selected"' : '') : (isset($v['values']) && $v['values'] == 0 ? 'selected="selected"' : '');?>><?=L('no');?></option>
+											</select>
+										<?php }elseif(isset($v['type']) && $v['type'] == 'choose'){?>
+											<?php if(!is_array($v['values'])){?>
+												<?php $tmp = $v['values'];?>
+												<?php $arr = $$tmp;?>
+											<?php }else{?>
+												<?php $arr = $v['values'];?>
+											<?php }?>
+											<select name="<?=$k;?>" class="field size2">
+												<?php if($k == 'parent_id' || $k == 'cate_id'){?>
+													<option value="0"><?=L(array('top', 'ds', 'category'));?></option>
+												<?php }?>
+												<?php foreach($arr as $a => $b){?>
+													<option value="<?=$a;?>" <?=isset($info, $info[$k]) && $info[$k] == $a ? 'selected="selected"' : '';?>><?=L($b);?></option>
+												<?php }?>
+											</select>
+										<?php }elseif(isset($v['type']) && $v['type'] == 'checkbox'){?>
+											<?php if(!is_array($v['values'])){?>
+												<?php $tmp = $v['values'];?>
+												<?php $arr = $$tmp;?>
+											<?php }else{?>
+												<?php $arr = $v['values'];?>
+											<?php }?>
+											<?php foreach($arr as $key => $value){?>
+												<input type="checkbox" name="<?=$k;?>[]" value="<?=$key;?>" <?php if(isset($info[$k], $info[$k][$key]) && $info[$k][$key] == true){ echo 'checked="checked"';}?>/><?php $t = explode('@', $key);?><?=isset($t[1]) ? L(array($t[0], 'ds', $t[1])) : L($t[0]);?>
+											<?php }?>
+										<?php }elseif(isset($v['type']) && $v['type'] == 'thumbnail'){?>
+											<input type="file" name="<?=$k;?>" />
+											<input type="hidden" name="thumbnail_delete" value="0" class="thumbnail_delete_input" />
+											<?php if(isset($info, $info[$k]) && !empty($info[$k])){?>
+												<img src="<?=$info[$k];?>" width="89" height="61" /><input type="button" value="<?=L('delete');?>" class="thumbnail_delete" />
+											<?php }?>
+										<?php }elseif(isset($v['type']) && $v['type'] == 'text'){?>
+											<textarea class="field size1" style="height:100px;" name="<?=$k;?>"><?=isset($info, $info[$k]) ? $info[$k] : '';?></textarea>
+										<?php }else{?>
+											<input type="text" name="<?=$k;?>" class="field size2" value="<?=isset($info, $info[$k]) ? $info[$k] : (isset($v['values']) ? $v['values'] : '');?>" />
+										<?php }?>
+									</p>
+								<?php }?>
+							<?php }?>
+						<?php }?>
+					</div>
+					<div class="buttons">
+						<input type="reset" class="button" value="<?=L('reset');?>" />
+						<input type="submit" class="button" value="<?=L('submit');?>" />
+					</div>
+				</form>
+			</div><!-- end of form box -->
+		</div><!-- end of content -->
+		<?php $this->cssStart();?>
+		<link rel="stylesheet" href="<?=__STATIC__;?>editor/default.css" />
+		<?php $this->cssEnd();?>
+		<?php $this->jsStart();?>
+		<script type="text/javascript" src="<?=__STATIC__;?>editor/kindeditor-min.js"></script>
+		<script type="text/javascript" src="<?=__STATIC__;?>editor/<?=L('exten_js_pack');?>.js"></script>
+		<script type="text/javascript">
+			var editor;
+			KindEditor.ready(function(K){
+				editor = K.create('textarea[name="content"]', {
+					cssPath : '<?=__APP__;?>editor/plugins/code/prettify.css',
+					uploadJson : '<?=$domain;?>ajax/upload.html',
+					allFileManager : false
+				});
+			});
+		</script>
+		<?php $this->jsEnd();?>
